@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:14:41 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/12 01:46:37 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:22:33 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_data	arg_philo(int ac, char **av)
 
 int	ft_help_main(int ac, char **av, t_data *philo, int *i)
 {
-
 	if (ac == 6 || ac == 5)
 	{
 		while (*i < ac)
@@ -39,7 +38,7 @@ int	ft_help_main(int ac, char **av, t_data *philo, int *i)
 			if (!ft_check_args(av[(*i)]))
 			{
 				ft_putstr_fd("try write real number\n", 2);
-				return(1);
+				return (1);
 			}
 			(*i)++;
 		}

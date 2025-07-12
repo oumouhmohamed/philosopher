@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 13:22:21 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/12 13:27:02 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:26:25 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 long	get_time_ms(void)
 {
 	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
@@ -23,7 +24,7 @@ void	safe_print(t_philo *philo, char *msg)
 {
 	t_data	*data;
 	int		died;
-	
+
 	data = philo->data;
 	pthread_mutex_lock(&data->death_lock);
 	died = data->s_died;
@@ -33,6 +34,7 @@ void	safe_print(t_philo *philo, char *msg)
 		printf("%ld %d %s\n", get_time_ms() - data->time, philo->id, msg);
 	pthread_mutex_unlock(&data->print_lock);
 }
+
 void	index_philsophers(t_data *data)
 {
 	int	i;

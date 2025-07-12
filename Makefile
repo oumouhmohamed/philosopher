@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 LDFLAGS = -lpthread
 SRCS = philosopher.c utils.c utils1.c help_thread.c \
 		help_thread1.c

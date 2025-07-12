@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 01:48:30 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/12 13:22:59 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:25:32 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ void	handle_sleep(long time_ms, t_data *data)
 		pthread_mutex_unlock(&data->death_lock);
 	}
 }
+
 void	eat(t_philo *philo)
 {
-	t_data *data = philo->data;
+	t_data	*data;
 
+	data = philo->data;
 	safe_print(philo, "is eating");
 	pthread_mutex_lock(&data->meal_lock);
 	philo->last_meal_time = get_time_ms();
 	pthread_mutex_unlock(&data->meal_lock);
 	philo->meals_eaten++;
-	if (data->nbr_times_philo_must_eat != -1 && philo->meals_eaten == data->nbr_times_philo_must_eat)
+	if (data->nbr_times_philo_must_eat != -1
+		&& philo->meals_eaten == data->nbr_times_philo_must_eat)
 	{
 		pthread_mutex_lock(&data->meal_lock);
 		data->full_philos++;
@@ -68,17 +71,17 @@ void	one_philo(t_philo *philo)
 		pthread_mutex_lock(&philo->data->death_lock);
 	}
 	pthread_mutex_unlock(&philo->data->death_lock);
-	
 	pthread_mutex_unlock(philo->l_fork);
 }
 
 void	*action_philo(void *arg)
 {
-	t_philo *philo = (t_philo *)arg;
+	t_philo	*philo;
 
+	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		usleep(1000);
-	if(philo->data->nbr_philo == 1)
+	if (philo->data->nbr_philo == 1)
 		one_philo(philo);
 	while (1)
 	{
@@ -86,7 +89,7 @@ void	*action_philo(void *arg)
 		if (philo->data->s_died)
 		{
 			pthread_mutex_unlock(&philo->data->death_lock);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&philo->data->death_lock);
 		forks(philo);

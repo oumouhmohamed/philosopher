@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:41:38 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/11 23:05:06 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:22:05 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ int	ft_check_nbr(t_data list_philo, int ac)
 	if (list_philo.nbr_philo > 200)
 		return (0);
 	if (list_philo.nbr_philo == -1 || list_philo.time_die == -1
-			|| list_philo.time_eat == -1 || list_philo.time_sleep == -1)
-				return (0);
+		|| list_philo.time_eat == -1 || list_philo.time_sleep == -1)
+		return (0);
 	if (list_philo.time_die < 60
-			|| list_philo.time_eat < 60 || list_philo.time_sleep < 60)
-				return (0);
+		|| list_philo.time_eat < 60 || list_philo.time_sleep < 60)
+		return (0);
 	if (ac == 6)
 	{
 		if (list_philo.nbr_times_philo_must_eat == -1)
 			return (0);
 	}
-	return(1);
+	return (1);
 }
 
 int	ft_check_args(char *str)

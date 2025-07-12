@@ -1,16 +1,28 @@
-#ifndef PHILO_H
-# define PHILO_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosopher.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/12 22:14:17 by mooumouh          #+#    #+#             */
+/*   Updated: 2025/07/12 22:17:09 by mooumouh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <time.h>
+#ifndef PHILOSOPHER_H
+# define PHILOSOPHER_H
 
-#define Max_philo 200
+# include <stdio.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <time.h>
 
-typedef struct s_data t_data;
+# define MAX_PHILO 200
+
+typedef struct s_data	t_data;
 
 typedef struct s_philo {
 	int				id;
@@ -35,9 +47,9 @@ typedef struct s_data
 	pthread_t		death_monitor;
 	pthread_mutex_t	death_lock;
 	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	forks[Max_philo];
+	pthread_mutex_t	forks[MAX_PHILO];
 	pthread_mutex_t	print_lock;
-	t_philo			philos[Max_philo];
+	t_philo			philos[MAX_PHILO];
 }					t_data;
 
 int		ft_strlen(const char *s);
