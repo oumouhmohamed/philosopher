@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:37:35 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/12 22:20:07 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/13 22:31:58 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*monitor(void *arg)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&data->meal_lock);
-		usleep(1000);
+		usleep(10);
 	}
 	return (NULL);
 }
@@ -81,7 +81,7 @@ int	main(int ac, char **av)
 		if (pthread_create(&philo.philos[i].thread, NULL,
 				action_philo, &philo.philos[i]) != 0)
 		{
-			ft_putstr_fd("error\n", 2);
+			ft_putstr_fd("fail pthread create\n", 2);
 			return (1);
 		}
 		i++;
