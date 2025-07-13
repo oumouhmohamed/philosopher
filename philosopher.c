@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:37:35 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/13 22:31:58 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/13 23:11:44 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,16 @@ int	main(int ac, char **av)
 		if (pthread_create(&philo.philos[i].thread, NULL,
 				action_philo, &philo.philos[i]) != 0)
 		{
-			ft_putstr_fd("fail pthread create\n", 2);
+			ft_putstr_fd("failed pthread create\n", 2);
 			return (1);
 		}
 		i++;
 	}
-	pthread_create(&philo.death_monitor, NULL, monitor, &philo);
+	if (pthread_create(&philo.death_monitor, NULL, monitor, &philo) != 0)
+	{
+		ft_putstr_fd("Failed to create death monitor\n", 2);
+		return (1);
+	}
 	free_thread(&philo);
 	return (0);
 }
