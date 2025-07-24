@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 01:48:30 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/13 22:32:32 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:39:49 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ void	eat(t_philo *philo)
 	t_data	*data;
 
 	data = philo->data;
-	safe_print(philo, "is eating");
+	print_action(philo, "is eating");
 	pthread_mutex_lock(&data->meal_lock);
 	philo->last_meal_time = get_time_ms();
 	pthread_mutex_unlock(&data->meal_lock);
-	philo->meals_eaten++;
 	if (data->nbr_times_philo_must_eat != -1
-		&& philo->meals_eaten == data->nbr_times_philo_must_eat)
+		&& philo->meals_eaten == data->nbr_times_philo_must_eat - 1)
 	{
 		pthread_mutex_lock(&data->meal_lock);
 		data->full_philos++;
 		pthread_mutex_unlock(&data->meal_lock);
 	}
 	handle_sleep(data->time_eat, data);
+	philo->meals_eaten++;
 }
 
 void	drop_forks(t_philo *philo)
@@ -62,7 +62,7 @@ void	one_philo(t_philo *philo)
 
 	data = philo->data;
 	pthread_mutex_lock(philo->l_fork);
-	safe_print(philo, "take fork");
+	print_action(philo, "take fork");
 	pthread_mutex_lock(&philo->data->death_lock);
 	while (!philo->data->s_died)
 	{
@@ -95,9 +95,9 @@ void	*action_philo(void *arg)
 		forks(philo);
 		eat(philo);
 		drop_forks(philo);
-		safe_print(philo, "is sleeping");
+		print_action(philo, "is sleeping");
 		handle_sleep(philo->data->time_sleep, philo->data);
-		safe_print(philo, "is thinking");
+		print_action(philo, "is thinking");
 	}
 	return (NULL);
 }

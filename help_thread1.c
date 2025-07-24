@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 13:22:21 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/12 22:26:25 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:39:57 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ long	get_time_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	safe_print(t_philo *philo, char *msg)
+void	print_action(t_philo *philo, char *msg)
 {
 	t_data	*data;
 	int		died;
 
 	data = philo->data;
 	pthread_mutex_lock(&data->death_lock);
-	died = data->s_died;
-	pthread_mutex_unlock(&data->death_lock);
 	pthread_mutex_lock(&data->print_lock);
+	died = data->s_died;
 	if (!died)
 		printf("%ld %d %s\n", get_time_ms() - data->time, philo->id, msg);
+	pthread_mutex_unlock(&data->death_lock);
 	pthread_mutex_unlock(&data->print_lock);
 }
 
@@ -55,6 +55,7 @@ void	index_philsophers(t_data *data)
 	{
 		data->philos[i].id = i + 1;
 		data->philos[i].meals_eaten = 0;
+		data->full_philos = 0;
 		data->philos[i].last_meal_time = data->time;
 		data->philos[i].l_fork = &data->forks[i];
 		data->philos[i].r_fork = &data->forks[(i + 1) % data->nbr_philo];
@@ -63,17 +64,16 @@ void	index_philsophers(t_data *data)
 	}
 }
 
-void	free_thread(t_data *philo)
+void	free_thread(t_data *philo, int *limit)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->nbr_philo)
+	while (i < *limit)
 	{
 		pthread_join(philo->philos[i].thread, NULL);
 		i++;
 	}
-	pthread_join(philo->death_monitor, NULL);
 	i = 0;
 	while (i < philo->nbr_philo)
 	{
@@ -89,15 +89,15 @@ void	forks(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->l_fork);
-		safe_print(philo, "take fork");
+		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->r_fork);
-		safe_print(philo, "take fork");
+		print_action(philo, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(philo->r_fork);
-		safe_print(philo, "take fork");
+		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->l_fork);
-		safe_print(philo, "take fork");
+		print_action(philo, "has taken a fork");
 	}
 }

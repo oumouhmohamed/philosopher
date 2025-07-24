@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:37:35 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/13 23:11:44 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:01:57 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	help_monitor(t_data **data)
 		pthread_mutex_unlock(&(*data)->meal_lock);
 		if (time_since_meal > (*data)->time_die)
 		{
+			pthread_mutex_lock(&(*data)->death_lock);
 			pthread_mutex_lock(&(*data)->print_lock);
+			(*data)->s_died = 1;
 			printf("%ld %d died\n", get_time_ms() - (*data)->time,
 				(*data)->philos[i].id);
-			pthread_mutex_lock(&(*data)->death_lock);
-			(*data)->s_died = 1;
-			pthread_mutex_unlock(&(*data)->death_lock);
 			pthread_mutex_unlock(&(*data)->print_lock);
+			pthread_mutex_unlock(&(*data)->death_lock);
 			return (0);
 		}
 		i++;
@@ -41,11 +41,8 @@ int	help_monitor(t_data **data)
 	return (1);
 }
 
-void	*monitor(void *arg)
+void	*monitor(t_data	*data)
 {
-	t_data	*data;
-
-	data = (t_data *)arg;
 	while (!data->s_died)
 	{
 		if (help_monitor(&data) == 0)
@@ -81,16 +78,16 @@ int	main(int ac, char **av)
 		if (pthread_create(&philo.philos[i].thread, NULL,
 				action_philo, &philo.philos[i]) != 0)
 		{
+			pthread_mutex_lock(&philo.death_lock);
+			philo.s_died = 1;
+			pthread_mutex_unlock(&philo.death_lock);
+			free_thread(&philo, &i);
 			ft_putstr_fd("failed pthread create\n", 2);
 			return (1);
 		}
 		i++;
 	}
-	if (pthread_create(&philo.death_monitor, NULL, monitor, &philo) != 0)
-	{
-		ft_putstr_fd("Failed to create death monitor\n", 2);
-		return (1);
-	}
-	free_thread(&philo);
+	monitor(&philo);
+	free_thread(&philo, &philo.nbr_philo);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 22:14:17 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/12 22:17:09 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:38:37 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include <time.h>
 
 # define MAX_PHILO 200
 
 typedef struct s_data	t_data;
 
-typedef struct s_philo {
+typedef struct s_philo
+{
 	int				id;
 	int				meals_eaten;
 	long			last_meal_time;
@@ -65,8 +65,8 @@ void	drop_forks(t_philo *philo);
 void	one_philo(t_philo *philo);
 void	*action_philo(void *arg);
 long	get_time_ms(void);
-void	safe_print(t_philo *philo, char *msg);
+void	print_action(t_philo *philo, char *msg);
 void	forks(t_philo *philo);
 void	index_philsophers(t_data *data);
-void	free_thread(t_data *philo);
+void	free_thread(t_data *philo, int *i);
 #endif
