@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:37:35 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/24 12:01:57 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:03:21 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*monitor(t_data	*data)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&data->meal_lock);
-		usleep(10);
+		usleep(1000);
 	}
 	return (NULL);
 }

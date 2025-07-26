@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:14:41 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/12 22:22:33 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:13:00 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,18 @@ int	ft_help_main(int ac, char **av, t_data *philo, int *i)
 		return (1);
 	}
 	return (0);
+}
+
+void	ft_sleep(t_philo *philo)
+{
+	if (philo->data->nbr_philo > 10 && philo->id % 2 != 0)
+	{
+		if (philo->id % 2 != 0)
+			usleep(50000);
+	}
+	else
+	{
+		if (philo->id % 2 != 0)
+			usleep(500);
+	}
 }

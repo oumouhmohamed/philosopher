@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 22:14:17 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/24 18:38:37 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:13:10 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	print_action(t_philo *philo, char *msg);
 void	forks(t_philo *philo);
 void	index_philsophers(t_data *data);
 void	free_thread(t_data *philo, int *i);
+void	ft_sleep(t_philo *philo);
 #endif

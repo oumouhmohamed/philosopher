@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 01:48:30 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/24 18:39:49 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:12:51 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&data->meal_lock);
 	philo->last_meal_time = get_time_ms();
 	pthread_mutex_unlock(&data->meal_lock);
+	handle_sleep(data->time_eat, data);
+	philo->meals_eaten++;
 	if (data->nbr_times_philo_must_eat != -1
-		&& philo->meals_eaten == data->nbr_times_philo_must_eat - 1)
+		&& philo->meals_eaten == data->nbr_times_philo_must_eat)
 	{
 		pthread_mutex_lock(&data->meal_lock);
 		data->full_philos++;
 		pthread_mutex_unlock(&data->meal_lock);
 	}
-	handle_sleep(data->time_eat, data);
-	philo->meals_eaten++;
 }
 
 void	drop_forks(t_philo *philo)
@@ -79,8 +79,7 @@ void	*action_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		usleep(1000);
+	ft_sleep(philo);
 	if (philo->data->nbr_philo == 1)
 		one_philo(philo);
 	while (1)
@@ -92,12 +91,12 @@ void	*action_philo(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->data->death_lock);
+		print_action(philo, "is thinking");
 		forks(philo);
 		eat(philo);
 		drop_forks(philo);
 		print_action(philo, "is sleeping");
 		handle_sleep(philo->data->time_sleep, philo->data);
-		print_action(philo, "is thinking");
 	}
 	return (NULL);
 }
