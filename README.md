@@ -94,5 +94,3 @@ Process creation with fork (bonus)
 Semaphore usage (sem_open, sem_wait, sem_post) (bonus)
 
 Writing thread-safe C code
-
-If you’d like, I can help you step-by-step with setup, thread creation, fork logic, death monitoring, and more.
