@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 01:48:30 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/26 20:12:51 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:45:59 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	one_philo(t_philo *philo)
 
 	data = philo->data;
 	pthread_mutex_lock(philo->l_fork);
-	print_action(philo, "take fork");
+	print_action(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->data->death_lock);
 	while (!philo->data->s_died)
 	{

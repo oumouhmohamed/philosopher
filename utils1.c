@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:14:41 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/26 20:13:00 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/07/27 11:01:44 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_sleep(t_philo *philo)
 	}
 	else
 	{
-		if (philo->id % 2 != 0)
-			usleep(500);
+		if (philo->id % 2 == 0)
+			usleep(1000);
 	}
 }

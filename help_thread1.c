@@ -6,7 +6,7 @@
 /*   By: mooumouh <mooumouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 13:22:21 by mooumouh          #+#    #+#             */
-/*   Updated: 2025/07/25 18:09:39 by mooumouh         ###   ########.fr       */
+/*   Updated: 2025/08/04 11:00:06 by mooumouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	free_thread(t_data *philo, int *limit)
 	}
 	pthread_mutex_destroy(&philo->print_lock);
 	pthread_mutex_destroy(&philo->meal_lock);
+	pthread_mutex_destroy(&philo->death_lock);
 }
 
 void	forks(t_philo *philo)
